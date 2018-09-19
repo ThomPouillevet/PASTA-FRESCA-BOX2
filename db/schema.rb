@@ -10,10 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_19_140335) do
+ActiveRecord::Schema.define(version: 2018_09_19_151436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "formules", force: :cascade do |t|
+    t.integer "price"
+    t.integer "packs"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "formule_id"
+    t.index ["formule_id"], name: "index_orders_on_formule_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "pasta_orders", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "order_id"
+    t.bigint "pasta_type_id"
+    t.index ["order_id"], name: "index_pasta_orders_on_order_id"
+    t.index ["pasta_type_id"], name: "index_pasta_orders_on_pasta_type_id"
+  end
+
+  create_table "pasta_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -23,8 +54,15 @@ ActiveRecord::Schema.define(version: 2018_09_19_140335) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "formule_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["formule_id"], name: "index_users_on_formule_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "orders", "formules"
+  add_foreign_key "orders", "users"
+  add_foreign_key "pasta_orders", "orders"
+  add_foreign_key "pasta_orders", "pasta_types"
+  add_foreign_key "users", "formules"
 end
