@@ -11,8 +11,12 @@ User.destroy_all
 
 puts 'Creating test user...'
 
-user = User.new(email: "test@test.com",
-              password: 'azerty')
+user = User.new(
+  email: "test@test.com",
+  password: 'azerty',
+  name: 'Thom',
+  address: '53 cours Vitton Lyon',
+  phone_number: '0456743456')
 user.save!
 
 puts 'Finished!'
