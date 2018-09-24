@@ -9,8 +9,9 @@
 puts 'Cleaning database...'
 User.destroy_all
 PastaType.destroy_all
+Formule.destroy_all
 
-puts 'Creating test user & Pasta Types...'
+puts 'Creating test user, Pasta Types and Formules...'
 
 user = User.new(
   email: "test@test.com",
@@ -24,8 +25,6 @@ puts 'test user OK'
 
 pasta_types_names = ['Gnocci', 'Orecchiette', 'Fusili', 'Penne', 'Tortiglioni']
 
-puts 'Array pasta type OK'
-
 url_pasta_type = ['https://static.cuisineaz.com/610x610/i9837-gnocchi-di-patate.jpg',
   'https://cdn.shopify.com/s/files/1/1935/9089/products/rustichella-dabruzzo-orecchiette-product-shot-1000x1000_530x@2x.jpg?v=1523665518',
   'https://static3.depositphotos.com/1000789/120/i/950/depositphotos_1208604-stock-photo-pasta-fusili-as-background.jpg',
@@ -33,7 +32,6 @@ url_pasta_type = ['https://static.cuisineaz.com/610x610/i9837-gnocchi-di-patate.
   'https://st.depositphotos.com/1011845/2049/i/950/depositphotos_20497449-stock-photo-pasta-tortiglioni.jpg'
 ]
 
-puts 'array url OK'
 
 i = 4
 5.times do
@@ -43,5 +41,13 @@ i = 4
 
   i -= 1
 end
+
+# puts 'Creating formules'
+
+formule_cancel = Formule.create([{ price: 0 }, { packs: 0 }])
+formule_1 = Formule.create([{ price: 15 }, { packs: 2 }])
+formule_2 = Formule.create([{ price: 25 }, { packs: 4 }])
+
+puts 'Formules OK'
 
 puts 'Finished!'
