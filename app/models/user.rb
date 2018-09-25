@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  # belongs_to :formule a remettre a la fin
+  belongs_to :formule, optional: true
   has_many :orders
 
   validates :email, presence: true
@@ -15,6 +15,22 @@ class User < ApplicationRecord
 
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
+
+  def unsubscribe!
+    self.formule = Formule.find_by(price: 0) #permettra de dissocuer les user qui n'ont jamais été abonnés (formule_id: nil) de ceux qui ce sont désabonnés (formule_id: 1)
+    save!
+  end
+
+  def formule_1
+    self.formule = Formule.find_by(price: 15)
+    save!
+  end
+
+  def formule_2
+    self.formule = Formule.find_by(price: 25)
+    save!
+  end
+
 end
 
 
