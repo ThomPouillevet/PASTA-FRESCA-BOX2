@@ -12,6 +12,24 @@ PastaType.destroy_all
 Formule.destroy_all
 
 puts 'Creating test user, Pasta Types and Formules...'
+# puts 'Creating formules'
+
+formule_cancel = Formule.new(
+  price: 0,
+  packs: 0)
+formule_cancel.save!
+
+formule_1 = Formule.new(
+  price: 15,
+  packs: 2)
+formule_1.save!
+
+formule_2 = Formule.new(
+  price: 25,
+  packs: 4)
+formule_2.save!
+
+puts 'Formules OK'
 
 user = User.new(
   email: "test@test.com",
@@ -42,12 +60,5 @@ i = 4
   i -= 1
 end
 
-# puts 'Creating formules'
-
-formule_cancel = Formule.create([{ price: 0 }, { packs: 0 }])
-formule_1 = Formule.create([{ price: 15 }, { packs: 2 }])
-formule_2 = Formule.create([{ price: 25 }, { packs: 4 }])
-
-puts 'Formules OK'
 
 puts 'Finished!'

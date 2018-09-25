@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_24_094231) do
+ActiveRecord::Schema.define(version: 2018_09_24_195147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,7 +61,9 @@ ActiveRecord::Schema.define(version: 2018_09_24_094231) do
     t.string "phone_number"
     t.float "latitude"
     t.float "longitude"
+    t.bigint "formule_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["formule_id"], name: "index_users_on_formule_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -69,4 +71,5 @@ ActiveRecord::Schema.define(version: 2018_09_24_094231) do
   add_foreign_key "orders", "users"
   add_foreign_key "pasta_orders", "orders"
   add_foreign_key "pasta_orders", "pasta_types"
+  add_foreign_key "users", "formules"
 end
