@@ -4,7 +4,7 @@ class Order < ApplicationRecord
   has_many :pasta_orders
   has_many :pasta_types, through: :pasta_orders
 
-  validates :status, inclusion: { in: ["to prepare", "in progress", "ready", "sent", "cancelled"]
+  validates :status, inclusion: { in: ["to prepare", "in progress", "ready", "sent", "cancelled"]}
 
 # list the orders by their status
 
@@ -31,7 +31,7 @@ class Order < ApplicationRecord
 # methodes de changement de status
 
   def prepare!
-    self.status = "in_progress"
+    self.status = "in progress"
     save!
   end
 
